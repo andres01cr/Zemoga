@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import searchIcon from './assets/img/search.svg'; // Update the path as needed
+import searchIcon from './assets/img/search.svg'; 
 
 const StyledNav = styled.nav`
     position: fixed;
