@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import voteReducer from '../features/vote/voteSlice';
+import votingReducer from './votingSlice';
 
 export const store = configureStore({
   reducer: {
-    vote: voteReducer,
+    voting: votingReducer,
   },
 });
 
