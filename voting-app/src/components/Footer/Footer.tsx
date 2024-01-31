@@ -49,10 +49,8 @@ const SocialContainer = styled.div`
     }
 `;
 
-// Define the types for the Footer component
 interface FooterProps {}
 
-// Create the Footer component
 const Footer: React.FC<FooterProps> = () => {
     return (
         <FooterContainer>

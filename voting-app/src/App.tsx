@@ -1,4 +1,4 @@
-import { FC, useEffect} from 'react';
+import React, { FC, useEffect} from 'react';
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Navbar from './components/Navbar/Navbar';

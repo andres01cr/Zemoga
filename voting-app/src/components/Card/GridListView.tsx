@@ -4,12 +4,10 @@ import { fetchData } from '../../store/votingSlice';
 import VoteCard from './VoteCard';
 import styled from 'styled-components';
 import { Card } from '../../interfaces/types'
-
+import Carousel from './Carousel';
 
 const Container = styled.div`
-  .view-toggle {
- 
-  }
+  // Add your styles here
 `;
 
 const Grid = styled.div`
@@ -26,7 +24,6 @@ const List = styled.div`
   padding: 16px;
 `;
 
-
 interface RootState {
   voting: {
     data: Card[];
@@ -38,28 +35,44 @@ const GridViewListView: React.FC = () => {
   const data = useSelector((state: RootState) => state.voting.data);
 
   const [viewType, setViewType] = useState<'grid' | 'list'>('list');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
-    <Container>
-      <div className="view-toggle">
-        <button onClick={() => setViewType('list')}>List View</button>
-        <button onClick={() => setViewType('grid')}>Grid View</button>
-      </div>
+    <>
+      {isMobile && <Carousel data={data} />}
 
-      {viewType === 'grid' ? (
-        <Grid>
-          {data.map((item: Card) => (
-            <VoteCard key={item.name} data={item} />
-          ))}
-        </Grid>
-      ) : (
-        <List>
-          {data.map((item: Card) => (
-            <VoteCard key={item.name} data={item} />
-          ))}
-        </List>
+      {!isMobile && (
+        <Container>
+          <div className="view-toggle">
+            <button onClick={() => setViewType('list')}>List View</button>
+            <button onClick={() => setViewType('grid')}>Grid View</button>
+          </div>
+
+          {viewType === 'grid' ? (
+            <Grid>
+              {data.map((item: Card) => (
+                <VoteCard key={item.name} data={item} />
+              ))}
+            </Grid>
+          ) : (
+            <List>
+              {data.map((item: Card) => (
+                <VoteCard key={item.name} data={item} />
+              ))}
+            </List>
+          )}
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 

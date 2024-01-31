@@ -71,7 +71,6 @@ const NavLink = styled.li`
 `;
 
 const SearchForm = styled.form`
-    /* Additional styles if needed */
 `;
 
 const SearchInput = styled.input`
