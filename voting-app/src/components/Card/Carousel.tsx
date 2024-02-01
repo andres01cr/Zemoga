@@ -1,8 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import VoteCard from './VoteCard';
-import { Card } from '../../interfaces/types';
-
+import { Card } from '../../interfaces/types'
 
 // Styled components
 const CarouselContainer = styled.div`
@@ -21,11 +20,11 @@ const CarouselItem = styled.div`
   width: 25rem;
 `;
 
-interface CarouselProps {
-  data: any[]; // Replace with your data type
+interface Props {
+  data: Card[];
 }
 
-const Carousel: React.FC<CarouselProps> = ({ data }) => {
+const Carousel: React.FC<Props> = ( {data} ) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentTranslate, setCurrentTranslate] = useState(0);
@@ -67,7 +66,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
       onTouchEnd={handleDragEnd}
     >
       <CarouselInner style={{ transform: `translateX(${currentTranslate}px)` }}>
-        {data.map((item, index) => (
+        {data.map((item:Card, index) => (
           <CarouselItem key={index}>
            <VoteCard data={item} />
           </CarouselItem>

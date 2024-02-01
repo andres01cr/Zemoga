@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchData } from '../../store/votingSlice';
+import { useSelector } from 'react-redux';
 import VoteCard from './VoteCard';
 import styled from 'styled-components';
 import { Card } from '../../interfaces/types'
 import Carousel from './Carousel';
 
-const Container = styled.div`
-   
-`;
+const Container = styled.div``;
 
 const Grid = styled.div`
   display: grid;
@@ -43,7 +40,7 @@ interface RootState {
 }
 
 const GridViewListView: React.FC = () => {
-  const dispatch = useDispatch();
+
   const data = useSelector((state: RootState) => state.voting.data);
 
   const [viewType, setViewType] = useState<'grid' | 'list'>('list');

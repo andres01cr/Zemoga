@@ -1,9 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { vote } from '../../store/votingSlice';
 import styled, { keyframes } from 'styled-components';
 import GaugeBar from './GaugeBar';
+import { Card } from '../../interfaces/types'
 
 // Styled components
 const fadeIn = keyframes`
@@ -204,28 +205,16 @@ const GaugeBarWrapper = styled.div`
   width: 100%;
 `;
 
-interface VoteCardProps {
-  data: {
-    name: string;
-    description: string;
-    picture: string;
-    dateDescription: string;
-    votes: {
-      positive: number;
-      negative: number;
-    };
-  };
+interface Props {
+  data: Card;
 }
 
-const VoteCard: React.FC<VoteCardProps> = ({ data }) => {
+const VoteCard: React.FC<Props> = ({data}) => {
+
   const dispatch = useDispatch();
   const [selectedVote, setSelectedVote] = useState<'positive' | 'negative' | null>(null);
   const [thankYouText, setThankYouText] = useState('Thank you for your vote!');
   const [voteButtonText, setVoteButtonText] = useState('Vote Now');
-
-  useEffect(() => {
-
-  }, []);
 
   const handleVote = () => {
     if (selectedVote) {
@@ -316,16 +305,3 @@ const VoteCard: React.FC<VoteCardProps> = ({ data }) => {
 };
 
 export default VoteCard;
-
-
-export interface Card {
-  name: string;
-  description: string;
-  category: string;
-  picture: string;
-  lastUpdated: string;
-  votes: {
-      positive: number;
-      negative: number;
-  };
-}
