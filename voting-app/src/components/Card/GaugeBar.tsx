@@ -1,4 +1,5 @@
 import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 interface GaugeBarProps {
   positiveVotes: number;
@@ -9,21 +10,39 @@ const barContainerStyle: React.CSSProperties = {
   display: 'flex',
   width: '100%',
   backgroundColor: '#e0e0e0',
-  borderRadius: '4px',
   overflow: 'hidden'
 };
 
-const fillStyle = (width: number, backgroundColor: string): React.CSSProperties => ({
+const ImgThumbsUp = styled.div`
+    background: url('assets/img/thumbs-up.svg');
+    background-size: contain;
+    width: 1.0625rem;
+    height: 1.0625rem;
+    background-repeat: no-repeat;
+    margin: 0 .625rem;
+`;
+
+const ImgThumbsDown = styled.div`
+    background: url('assets/img/thumbs-down.svg');
+    background-size: contain;
+    width: 1.0625rem;
+    height: 1.0625rem;
+    background-repeat: no-repeat;
+    margin: 0 .625rem;
+`;
+
+const fillStyle = (width: number, backgroundColor: string, justifyContent: string): React.CSSProperties => ({
   backgroundColor,
-  height: '20px',
+  height: '35px',
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: `${justifyContent}`,
   alignItems: 'center',
   color: 'white',
-  fontSize: '12px',
+  fontSize: '20px',
   animation: 'widthGrow 0.5s ease-in-out',
   animationFillMode: 'forwards',
-  width: `${width}%` 
+  width: `${width}%` ,
+  opacity:0.8
 });
 
 const GaugeBar: React.FC<GaugeBarProps> = ({ positiveVotes, negativeVotes }) => {
@@ -39,11 +58,11 @@ const GaugeBar: React.FC<GaugeBarProps> = ({ positiveVotes, negativeVotes }) => 
     <div style={barContainerStyle}>
       {totalVotes > 0 && (
         <>
-          <div style={fillStyle(positivePercentage, '#4caf50')}>
-            {roundNumber(positivePercentage)}%
+          <div style={fillStyle(positivePercentage, '#3cbbb4', 'left')}>
+          <ImgThumbsUp/> {roundNumber(positivePercentage)}%
           </div>
-          <div style={fillStyle(negativePercentage, '#f44336')}>
-            {roundNumber(negativePercentage)}%
+          <div style={fillStyle(negativePercentage,  '#f9ad1d', 'right')}>
+          {roundNumber(negativePercentage)}%  <ImgThumbsDown />
           </div>
         </>
       )}

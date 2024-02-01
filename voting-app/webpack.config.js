@@ -1,66 +1,43 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = function (env, argv) {
-    const isProductionEnv = argv.mode === 'production';
-
-    /** @type { import('webpack').Configuration } */
-    const config = {
-        output: {
-            path: path.resolve(__dirname, 'dist'),
+module.exports = {
+  entry: './src/index.tsx',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: 'ts-loader',
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]',
         },
-        module: {
-            rules: [
-                {
-                    test: /\.(t|j)sx?$/,
-                    exclude: /(node_modules)/,
-                    use: { loader: 'swc-loader' },
-                },
-                {
-                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                    type: 'asset/inline',
-                },
-                {
-                    test: /\.(t|j)sx?$/,
-                    enforce: 'pre',
-                    use: ['source-map-loader'],
-                    include: /(@scheinone)/,
-                },
-            ],
-        },
-        resolve: {
-            extensions: ['.js', '.jsx', '.ts', '.tsx'],
-            alias: {
-                '@asset': path.resolve(__dirname, './public/assets'),
-                '@': path.resolve(__dirname, './src'),
-            },
-        },
-    };
-
-
-        Object.assign(config, {
-            devtool: 'eval-source-map',
-            entry: {
-                index: './src/index.tsx',
-            },
-            output: Object.assign(config.output, {
-                filename: 'index.js',
-            }),
-            plugins: [
-                new HtmlWebpackPlugin({
-                    template: path.resolve(__dirname, 'public/index.html'),
-                }),
-            ],
-            devServer: {
-                static: path.resolve(__dirname, './public'),
-                historyApiFallback: true,
-                port: 3007,
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                },
-            },
-        });
-
-    return config;
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+    }),
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    port: 3000,
+    open: true,
+  },
 };

@@ -6,9 +6,10 @@
             "category": "entertainment",
             "picture": "kanye.png",
             "lastUpdated": "2020-03-10T23:08:57.892Z",
+            "dateDescription": "1 month ago in Business",
             "votes": {
-                "positive": 23,
-                "negative": 36
+                "positive": 1,
+                "negative": 1
             }
         },
         {
@@ -17,6 +18,7 @@
             "category": "business",
             "picture": "mark.png",
             "lastUpdated": "2021-02-14T23:10:19.134Z",
+            "dateDescription": "24 days in Business",
             "votes": {
                 "positive": 418,
                 "negative": 324
@@ -28,6 +30,7 @@
             "category": "politics",
             "picture": "cristina.png",
             "lastUpdated": "2020-12-10T23:41:07.120Z",
+            "dateDescription": "1 year in Politics",
             "votes": {
                 "positive": 45,
                 "negative": 97
@@ -39,6 +42,7 @@
             "category": "politics",
             "picture": "malala.png",
             "lastUpdated": "2020-12-10T23:41:07.120Z",
+            "dateDescription": "2 years in Politics",
             "votes": {
                 "positive": 18,
                 "negative": 3
@@ -50,6 +54,7 @@
             "category": "business",
             "picture": "elon.png",
             "lastUpdated": "2020-12-20T23:43:38.041Z",
+            "dateDescription": "3 months in Business",
             "votes": {
                 "positive": 1237,
                 "negative": 894
@@ -61,6 +66,7 @@
             "category": "environment",
             "picture": "greta.png",
             "lastUpdated": "2021-02-26T23:44:50.326Z",
+            "dateDescription": "3 years in Politics",
             "votes": {
                 "positive": 118,
                 "negative": 45

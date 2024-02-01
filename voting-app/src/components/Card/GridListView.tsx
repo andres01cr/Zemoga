@@ -7,21 +7,33 @@ import { Card } from '../../interfaces/types'
 import Carousel from './Carousel';
 
 const Container = styled.div`
-  // Add your styles here
+   
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
-  gap: 16px;
-  padding: 16px;
+  grid-template-columns: repeat(3, minmax(15.625rem, 1fr));
+  gap: 1rem;
+  padding: 0 7.125rem;
+`;
+const SelectToggle = styled.select`
+  padding: 0.7rem 1.25rem;
+  color: rgba(0, 0, 0, .8);
+  border: 2px solid rgba(0, 0, 0, .8);
+  background-color: white;
+`;
+const ViewToggle = styled.div`
+  display: flex;
+  padding: 0 7.125rem;
+  flex-direction: row-reverse;
+  margin-bottom: .3125rem;
 `;
 
 const List = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px;
+  gap: 1rem;
+  padding: 0 7.125rem;
 `;
 
 interface RootState {
@@ -46,16 +58,21 @@ const GridViewListView: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+
   return (
     <>
       {isMobile && <Carousel data={data} />}
 
       {!isMobile && (
         <Container>
-          <div className="view-toggle">
-            <button onClick={() => setViewType('list')}>List View</button>
-            <button onClick={() => setViewType('grid')}>Grid View</button>
-          </div>
+          <ViewToggle>
+          <SelectToggle
+           onChange={(e) => setViewType( e.target.value as 'grid' | 'list' )}
+          >
+            <option value="list">List View</option>
+            <option value="grid">Grid View</option>
+          </SelectToggle>
+          </ViewToggle>
 
           {viewType === 'grid' ? (
             <Grid>

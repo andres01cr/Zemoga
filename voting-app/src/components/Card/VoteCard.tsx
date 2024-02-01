@@ -1,10 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { vote } from '../../store/votingSlice';
 import styled, { keyframes } from 'styled-components';
 import GaugeBar from './GaugeBar';
-import ThumbsUp from '../../utils/img/thumbs-up.svg';
-import ThumbsDown from '../../utils/img/thumbs-down.svg';
+
 // Styled components
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -12,7 +12,7 @@ const fadeIn = keyframes`
 `;
 
 const slideIn = keyframes`
-  from { transform: translateY(20px); }
+  from { transform: translateY(1.25rem); }
   to { transform: translateY(0); }
 `;
 
@@ -20,32 +20,52 @@ const VoteCardContainer = styled.div`
   animation: ${fadeIn} 0.5s, ${slideIn} 0.5s;
 `;
 
-const Button = styled.button`
-
-`;
-
 const ButtonVote = styled.button`
   padding: 0.7rem 1.25rem;
   color: white;
-  border: 2px solid white;
+  border: .125rem solid white;
   background-color: rgba(0, 0, 0, .8);
+  width: 7.5rem;
 `;
 
+const ButtonVoteP = styled.p`
+  font-size: .8125rem;
+`;
+
+const ButtonVoteContainer= styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ImgCover = styled.img`
+  object-fit: cover;
+  width: 12.5rem;
+`
 const VoteButtons = styled.div`
   flex-direction: row;
   justify-content: end;
   display:flex;
-  align-items: center;
+  align-items: end;
+  margin-bottom: .9375rem;
 `;
 
-const NameContainer  = styled.div`
-  display: flex;
-  align-items: center;
+const VoteButtonsP = styled.p`
+  font-size: .8125rem;
 `;
 
-const DescriptionWrapper  = styled.p`
+const VoteAgain = styled.div`
+  flex-direction: column;
+  justify-content: end;
+  display:flex;
+  align-items: end;
+  margin-bottom: .9375rem;
+`;
+
+const DescriptionWrapper  = styled.div`
   min-width: 0;
+  flex: 0 0 60%;
 `;
+
 const DescriptionContainer  = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
@@ -53,28 +73,68 @@ const DescriptionContainer  = styled.p`
 `;
 
 const ButtonThumbsUp = styled.button`
-    width: 2rem;
-    height: 2rem;
-    background-color: rgba(60, 187, 180, .8);
-    padding:0;  
-    border:0;
-    margin-right: .625rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(60, 187, 180, .8);
+  padding:0;  
+  border:0;
+  margin-right: .625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: .325rem;
+  &:hover {
+    background: rgba(60, 187, 180, .5);
+  }
+  &:focus {
+    background: rgba(60, 187, 180, .2);
+  }
+`;
+
+
+const ButtonThumbsDown = styled.button`
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(249, 173, 29, .8);
+  padding:0;
+  border:0;
+  margin-right: .625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: .325rem;
+  &:hover {
+    background: rgba(249, 173, 29, .5);
+  }
+
+  &:focus {
+    background: rgba(249, 173, 29, .2);
+  }
 
 `;
-const ButtonThumbsDown = styled.button`
-    width: 2rem;
-    height: 2rem;
-    background-color: rgba(249, 173, 29, .8);
-    padding:0;
-    border:0;
-    margin-right: .625rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
+const ButtonThumbsUpTitle = styled.button`
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(60, 187, 180, .8);
+  padding:0;  
+  border:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonThumbsDownTitle = styled.button`
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(249, 173, 29, .8);
+  padding:0;
+  border:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Row = styled.div`
@@ -88,38 +148,56 @@ const Column1 = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  flex: 0 0 2rem;
+  flex: 0 0 2.4rem;
   justify-content: center;
 `;
+
 const Column2 = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  flex: 0 0 80%;
+  flex: 0 0 85%;
+  width: 80%;
 `;
 
+const ImgThumbsUp = styled.div`
+    background: url('assets/img/thumbs-up.svg');
+    background-size: contain;
+    width: 1.0625rem;
+    height: 1.0625rem;
+    background-repeat: no-repeat;
+`;
 
+const ImgThumbsDown = styled.div`
+    background: url('assets/img/thumbs-down.svg');
+    background-size: contain;
+    width: 1.0625rem;
+    height: 1.0625rem;
+    background-repeat: no-repeat;
+`;
 
-const ImgThumbsUp = styled.img`
-    background-image: ('/utils/img/thumbs-up.svg');
-`
-const ImgThumbsDown = styled.img`
-    background-image: ('/utils/img/thumbs-down.svg');
-`
-const ResponsiveVoteCardContainer = styled(VoteCardContainer)<{$picture: string}>`
-  background-color: rgba(50, 50,50, .8);
-  //background-image: url(${ (props:any) => `utils/img/${props.$picture}`});
+const ResponsiveVoteCardContainerGradient = styled.div`
+  background: rgb(179,179,179);
+  background: linear-gradient(90deg, rgba(179,179,179,1) 12%, rgba(116,116,116,1) 84%);
   @media all and (max-width: 500px) {
-    // Small screen styles
-  }
+      // Small screen styles
+    }
 
-  @media all and (min-width: 501px) and (max-width: 768px) {
-    // Medium screen styles
-  }
+    @media all and (min-width: 501px) and (max-width: 768px) {
+      // Medium screen styles
+    }
 
-  @media all and (min-width: 769px) {
-    // Large screen styles
-  }
+    @media all and (min-width: 769px) {
+      // Large screen styles
+    }
+`;
+
+const ResponsiveVoteCardContainer = styled(VoteCardContainer)<{picture: string}>`
+  color: white;
+  background: url(${ (props:any) => `assets/img/${props.picture}`});
+  background-repeat: no-repeat;
+  background-size: contain;
+ 
 `;
 
 const GaugeBarWrapper = styled.div`
@@ -131,6 +209,7 @@ interface VoteCardProps {
     name: string;
     description: string;
     picture: string;
+    dateDescription: string;
     votes: {
       positive: number;
       negative: number;
@@ -145,7 +224,7 @@ const VoteCard: React.FC<VoteCardProps> = ({ data }) => {
   const [voteButtonText, setVoteButtonText] = useState('Vote Now');
 
   useEffect(() => {
-    // Add any useEffect logic if needed
+
   }, []);
 
   const handleVote = () => {
@@ -162,70 +241,77 @@ const VoteCard: React.FC<VoteCardProps> = ({ data }) => {
     setVoteButtonText('Vote Now');
   };
 
-  const gaugePercentage = ((data.votes.positive / (data.votes.positive + data.votes.negative)) * 100) || 0;
-
   return (
-    <ResponsiveVoteCardContainer $picture={data.picture}>
-      <Row>
-        <Column1>
-        {data.votes.positive >= data.votes.negative
-            ?   <ButtonThumbsUp> <ImgThumbsUp src={ThumbsUp}/></ButtonThumbsUp>
-            :   <ButtonThumbsDown>  <ImgThumbsDown src={ThumbsDown}/>  </ButtonThumbsDown>
-          }
-                 </Column1>
-           <Column2>
-          <h3>{data.name}</h3>
-          </Column2>
-      </Row>
-      <Row>
-      <Column1>
-      </Column1>
-        <Column2>
-        <DescriptionWrapper>
-          <DescriptionContainer>
-            {data.description}
-          </DescriptionContainer>
-        </DescriptionWrapper>
-      </Column2>
-      </Row>
-      <Row>
+    <ResponsiveVoteCardContainerGradient>
+      <ResponsiveVoteCardContainer picture={data.picture}>
+        <Row>
+          <Column1>
+          {data.votes.positive >= data.votes.negative
+              ?   <ButtonThumbsUpTitle> <ImgThumbsUp /></ButtonThumbsUpTitle>
+              :   <ButtonThumbsDownTitle>  <ImgThumbsDown />  </ButtonThumbsDownTitle>
+            }
+            </Column1>
+            <Column2>
+            <h3>{data.name}</h3>
+            </Column2>
+        </Row>
+        <Row>
         <Column1>
         </Column1>
-        <Column2>
-          <VoteButtons>
-            <ButtonThumbsUp
-              className={selectedVote === 'positive' ? 'selected' : ''}
-              onClick={() => setSelectedVote('positive')}
-            >
-              <ImgThumbsUp src={ThumbsUp}/>
-            </ButtonThumbsUp>
-            <ButtonThumbsDown
-
-              className={selectedVote === 'negative' ? 'selected' : ''}
-              onClick={() => setSelectedVote('negative')}
-            >
-              <ImgThumbsDown src={ThumbsDown}/>
-            </ButtonThumbsDown>
-            <ButtonVote
-              className="vote-now-button"
-              onClick={handleVote}
-              disabled={!selectedVote}
-            >
-              {voteButtonText}
-            </ButtonVote>
-          </VoteButtons>
+          <Column2>
+          <DescriptionWrapper>
+            <DescriptionContainer>
+              {data.description}
+            </DescriptionContainer>
+          </DescriptionWrapper>
         </Column2>
-      </Row>
-      <GaugeBarWrapper>
-        <GaugeBar positiveVotes={data.votes.positive} negativeVotes={data.votes.negative} />
-      </GaugeBarWrapper>
-      <p>{thankYouText}</p>
-      {voteButtonText === 'Vote Again' && (
-        <Button className="vote-again-button" onClick={handleVoteAgain}>
-          Vote Again
-        </Button>
-      )}
-    </ResponsiveVoteCardContainer>
+        </Row>
+        <Row>
+          <Column1>
+          </Column1>
+          <Column2>
+          { voteButtonText === 'Vote Now' &&
+            <VoteButtons>
+              <ButtonThumbsUp
+                onClick={() => setSelectedVote('positive')}
+              >
+                <ImgThumbsUp />
+              </ButtonThumbsUp>
+              <ButtonThumbsDown
+                onClick={() => setSelectedVote('negative')}
+              >
+                <ImgThumbsDown />
+              </ButtonThumbsDown>
+              <ButtonVoteContainer>
+                <ButtonVoteP>
+                  {data.dateDescription}
+                </ButtonVoteP>
+                <ButtonVote
+                  onClick={handleVote}
+                  disabled={!selectedVote}
+                >
+                {voteButtonText}
+                </ButtonVote>
+              </ButtonVoteContainer>
+            </VoteButtons>
+          }
+          {voteButtonText === 'Vote Again' && (
+          <VoteAgain>
+                  <VoteButtonsP>{thankYouText}</VoteButtonsP>
+                <ButtonVote  onClick={handleVoteAgain}>
+                  Vote Again
+                </ButtonVote>
+          </VoteAgain>
+        )}
+          </Column2>
+        </Row>
+        <GaugeBarWrapper>
+          <GaugeBar positiveVotes={data.votes.positive} negativeVotes={data.votes.negative} />
+        </GaugeBarWrapper>
+
+    
+      </ResponsiveVoteCardContainer>
+    </ResponsiveVoteCardContainerGradient>
   );
 };
 
