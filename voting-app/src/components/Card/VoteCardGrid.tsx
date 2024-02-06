@@ -29,6 +29,13 @@ const ButtonVote = styled.button`
   width: 7.5rem;
 `;
 
+const TitleH3 = styled.h3`
+  margin: 10px 0 20px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
+
 const ButtonVoteP = styled.p`
   font-size: .8125rem;
 `;
@@ -93,7 +100,6 @@ const ButtonThumbsUp = styled.button`
   }
 `;
 
-
 const ButtonThumbsDown = styled.button`
   width: 2rem;
   height: 2rem;
@@ -157,7 +163,7 @@ const Column2 = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  flex: 0 0 85%;
+  flex: 0 0 83%;
   width: 80%;
 `;
 
@@ -209,7 +215,7 @@ interface Props {
   data: Card;
 }
 
-const VoteCard: React.FC<Props> = ({data}) => {
+const VoteCardGrid: React.FC<Props> = ({data}) => {
 
   const dispatch = useDispatch();
   const [selectedVote, setSelectedVote] = useState<'positive' | 'negative' | null>(null);
@@ -241,7 +247,7 @@ const VoteCard: React.FC<Props> = ({data}) => {
             }
             </Column1>
             <Column2>
-            <h3>{data.name}</h3>
+            <TitleH3>{data.name}</TitleH3>
             </Column2>
         </Row>
         <Row>
@@ -304,4 +310,4 @@ const VoteCard: React.FC<Props> = ({data}) => {
   );
 };
 
-export default VoteCard;
+export default VoteCardGrid;

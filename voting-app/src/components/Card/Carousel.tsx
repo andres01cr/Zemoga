@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import styled from 'styled-components';
-import VoteCard from './VoteCard';
+import VoteCardGrid from './VoteCardGrid';
 import { Card } from '../../interfaces/types'
 
 // Styled components
@@ -68,7 +68,7 @@ const Carousel: React.FC<Props> = ( {data} ) => {
       <CarouselInner style={{ transform: `translateX(${currentTranslate}px)` }}>
         {data.map((item:Card, index) => (
           <CarouselItem key={index}>
-           <VoteCard data={item} />
+           <VoteCardGrid data={item} />
           </CarouselItem>
         ))}
       </CarouselInner>

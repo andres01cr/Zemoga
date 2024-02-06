@@ -10,3 +10,16 @@ export interface Card {
         negative: number;
     };
 }
+
+export interface RootState {
+    voting: {
+      data: Card[];
+    };
+  }
+
+  export enum FieldType {
+    Small = 500,
+    Medium =  768,
+    Large = 1100,
+  }
+  
